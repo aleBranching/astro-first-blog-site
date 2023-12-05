@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const allPosts = await Astro.glob("../posts/*.md");
+const uniqueTags = [
+  ...new Set(allPosts.map((ele) => ele.frontmatter.tags).flat()),
+];
+---
+
+<BaseLayout>
+    <div class="tags">{uniqueTags.map(ele => <p class="tag"><a href=`${ele}`>{ele}</a></p>)}</div>
+</BaseLayout>
+<style>
+  a {
+    color: #00539F;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    margin: 0.25em;
+    border: dotted 1px #a1a1a1;
+    border-radius: .5em;
+    padding: .5em 1em;
+    font-size: 1.15em;
+    background-color: #F8FCFD;
+  }
+</style>
